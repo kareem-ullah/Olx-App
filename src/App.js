@@ -1,26 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import { Container, Row, Col, Navbar, InputGroup, FormControl, Form, Button, Nav } from 'react-bootstrap';
+// import Header from './header';
+// import SecHeader from './secHeader';
+// import LargImg from './imgLarg';
+// import CardImg from './cardImg';
+// import Footar from './footar';
+// import bikeDetail from './containers/bikeDetail';
+// import Example from './components/description';
 import './App.css';
+import CustomRouter from './Router';
+// import UserData from './containers/userDetail/Form';
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
+  return (
+    <CustomRouter />
+    // <UserData />
+    
+  )
+}
 export default App;

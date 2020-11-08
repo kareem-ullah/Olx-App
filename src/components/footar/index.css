@@ -1,0 +1,25 @@
+.footarContainer {
+  margin-top: 10px;
+  background-color: #ebeeef;
+}
+.footarDiv {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding-bottom: 40px;
+  padding: 20px 0px 10px 20px;
+}
+.footar {
+  width: 100%;
+  /* height: 60px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 20px;
+  color: white;
+  background-color: #002f34;
+}
+.right {
+  float: right;
+}

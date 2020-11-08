@@ -1,38 +1,73 @@
-.App {
-  text-align: center;
+/* .colum{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.cardImgDiv{
+  width: 300px;
+  height: 300px;
+  margin: 8px;
+  font-weight: bold;
+  border: 2px solid #ebeeef;
+} */
+
+.borderActv:hover{
+  border: 2px solid gray !important;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.sideColum{
+  padding: 0px 0px 0px 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media only screen and (max-width: 767px) {
+  .sideColum{
+    padding: 10px 0px 0px 0px;
+  }
+ }
+
+
+.largeImg{
+  /* border: 2px solid black !important; */
+
+  width: 100%;
+  height: 500px;
+
+}
+
+@media only screen and (max-width: 767px) {
+ .largeImg{
+  width: 100%;
+  height: 250px;
+
+}
+}
+
+@media only screen and (min-width: 776px) {
+  .Carousel{
+    height: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+@media only screen and (max-width: 767px) {
+  .Carousel{
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+ }
+
+.CarouselImg{
+  /* width: 450; */
+ height: 450px;
 }
 
-.App-link {
-  color: #61dafb;
-}
+/* @media only screen and (max-width: 767px) {
+  .CarouselImg{
+    width: 250 !important;
+    height: 250px;
+   }
+ } */
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
