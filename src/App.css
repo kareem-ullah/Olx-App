@@ -1,35 +1,17 @@
-/* .colum{
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-}
-.cardImgDiv{
-  width: 300px;
-  height: 300px;
-  margin: 8px;
-  font-weight: bold;
-  border: 2px solid #ebeeef;
-} */
-
 .borderActv:hover{
   border: 2px solid gray !important;
 }
-
 .sideColum{
   padding: 0px 0px 0px 10px;
 }
-
 @media only screen and (max-width: 767px) {
   .sideColum{
     padding: 10px 0px 0px 0px;
   }
  }
-
-
 .largeImg{
-  /* border: 2px solid black !important; */
-
   width: 100%;
-  height: 500px;
+  height: 400px;
 
 }
 

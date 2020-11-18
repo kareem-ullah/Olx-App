@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Navbar, Nav } from 'react-bootstrap';
-
+import './index.css';
 
 function SecHeader() {
   return (
 
     <Container fluid>
-      <Row>
+      <Row className="rowDiv">
         <Col style={{ padding: '0px',borderBottom:'2px solid  #ebeeef',fontWeight:'bold' }}>
           <Navbar collapseOnSelect expand="lg" >
             <Navbar href="#home">ALL CATEGORIES</Navbar>

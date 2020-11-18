@@ -2,35 +2,40 @@ import React, { useState } from 'react';
 import firebase from '../../db'
 import olx from '../../images/bike/olx.jpg';
 import { Button, Modal } from 'react-bootstrap';
+import { Input } from 'antd';
+import { MailOutlined, UserOutlined, PhoneOutlined, HomeOutlined, LockOutlined } from '@ant-design/icons';
+
+
 
 const db = firebase.firestore();
 
 function SignupLog() {
     const [smShow, setSmShow] = useState(false);
-    const [credentials, setCredentials] = useState({ name: "", email: "", password: "", contact: "", city: "" });
+    const [credentials, setCredentials] = useState({ name: "", email: "", password: "", contact: "", city: "",uid:"" });
 
     const signup = () => {
         firebase.auth().createUserWithEmailAndPassword(credentials.email, credentials.password)
             .then(function (succuss) {
-                console.log('succuss', succuss)
+                localStorage.setItem("uid", succuss.user.uid)
+                // console.log('succuss', succuss.user.uid)
                 const obj = {
                     ...credentials,
                 }
                 delete obj.password;
-                console.log(succuss.user.uid, 'Object', obj);
+                // console.log(succuss.user.uid, 'Object', obj);
                 db.collection('user').doc(succuss.user.uid).set(obj);
             })
             .catch(function (error) {
                 alert(error.message)
             });
-
     }
 
     return (
         <>
+
             <span
-                style={{ borderBottom: '3px solid red', padding: '5px', color: "green" }}
-                onClick={() => setSmShow(true)}>Signup</span>
+                style={{ padding: '5px', color: "#007bff", fontWeight: 'bold', fontSize: '20px' }}
+                onClick={() => setSmShow(true)}>Create Account !!</span>
 
             <Modal
                 size="md"
@@ -41,53 +46,53 @@ function SignupLog() {
                 <Modal.Header closeButton>
 
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center', paddingTop: '0px' }}>
-                        <img src={olx} style={{ width: '50px', height: '50px' }} />
+                        <img src={olx} style={{ width: '50px', height: '50px' }} alt="olx" />
                     </div>
                 </Modal.Header>
                 <span style={{ textAlign: 'center', color: '#002f34', fontSize: '20px', fontWeight: '700', padding: '10px 15px' }}>
                     Welcome To Signup</span>
                 <Modal.Body>
-                    <div style={{ background: 'rgb(235, 238, 239)', borderBottom: '2px solid black', padding: '5px 8px 0px', marginBottom: '15px' }}>
+                    <div style={{ paddingBottom: '15px' }}>
                         <span>Enter Name</span>
-                        <input type="name"
+                        <Input placeholder="Enter Name"
                             onChange={event => setCredentials({ ...credentials, name: event.target.value })}
-                            style={{ width: '100%', background: 'rgb(235, 238, 239)', border: 'none', outline: 'none' }} />
+                            prefix={<UserOutlined style={{ fontSize: '20px' }} />}
+                        />
                     </div>
 
-                    <div style={{ background: 'rgb(235, 238, 239)', borderBottom: '2px solid black', padding: '5px 8px 0px', marginBottom: '15px' }}>
+                    <div style={{ paddingBottom: '15px' }}>
                         <span>Enter Email</span>
-                        <input type="email"
+                        <Input placeholder="Enter Email"
                             onChange={event => setCredentials({ ...credentials, email: event.target.value })}
-                            style={{ width: '100%', background: 'rgb(235, 238, 239)', border: 'none', outline: 'none' }} />
+                            prefix={<MailOutlined style={{ fontSize: '20px' }} />} />
+
                     </div>
 
-                    <div style={{ background: 'rgb(235, 238, 239)', borderBottom: '2px solid black', padding: '5px 8px 0px', marginBottom: '15px' }}>
+                    <div style={{ paddingBottom: '15px' }}>
                         <span>Enter Password</span>
-                        <input type="password"
+                        <Input.Password placeholder="Enter Password" prefix={<LockOutlined style={{ fontSize: '20px' }} />}
                             onChange={event => setCredentials({ ...credentials, password: event.target.value })}
-                            style={{ width: '100%', background: 'rgb(235, 238, 239)', border: 'none', outline: 'none' }} />
+                        />
                     </div>
 
-                    <div style={{ background: 'rgb(235, 238, 239)', borderBottom: '2px solid black', padding: '5px 8px 0px', marginBottom: '15px' }}>
+                    <div style={{ paddingBottom: '15px' }}>
                         <span>Enter Contact</span>
-                        <input type="text"
+                        <Input placeholder="default size"
                             onChange={event => setCredentials({ ...credentials, contact: event.target.value })}
-                            style={{ width: '100%', background: 'rgb(235, 238, 239)', border: 'none', outline: 'none' }} />
+                            prefix={<PhoneOutlined style={{ fontSize: '20px' }} />}
+                        />
                     </div>
 
-                    <div style={{ background: 'rgb(235, 238, 239)', borderBottom: '2px solid black', padding: '5px 8px 0px', marginBottom: '15px' }}>
+                    <div>
                         <span>Enter City</span>
-                        <input type="text"
+                        <Input placeholder="default size"
                             onChange={event => setCredentials({ ...credentials, city: event.target.value })}
-                            style={{ width: '100%', background: 'rgb(235, 238, 239)', border: 'none', outline: 'none' }} />
+                            prefix={<HomeOutlined style={{ fontSize: '20px' }} />}
+                        />
                     </div>
 
                     <div style={{ paddingTop: '50px' }}>
-                        <Button variant="outline-primary" size="lg"
-                            onClick={() => signup()}
-                            style={{ border: ' primary', fontSize: '24px', fontWeight: 'bold' }} block>
-                            Signup
-                                </Button>
+                        <Button type="primary" style={{ fontWeight: 'bold' }} onClick={() => signup()} block>Signup</Button>
                     </div>
 
                 </Modal.Body>

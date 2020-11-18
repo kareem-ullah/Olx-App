@@ -1,6 +1,8 @@
-
 .headerRow{
     background-color:  #ebeeef;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 .columImg{
     display: flex;
@@ -8,18 +10,15 @@
     margin: 10px;
 }
 .olxImg{
-    width: 60px;
-    height: 43px;
+    width: 50px;
+    height: 40px;
     margin-right: 10px;
 }
-.inputDiv{
-    border: 2px solid black;
-}
+
 .sarchImg{
     width: 30px;
 }
 .srchInput{
-    border:  2px solid black;
     margin: 10px;
 }
 .loginCol{
@@ -29,19 +28,18 @@
     justify-content: space-around;
 }
 .loginBtn{
-    border-bottom: 3px solid black;
+    border-bottom: 3px solid #007bff;
+    color: #007bff;
     margin-right: 10px;
     font-size: 18px;
     font-weight: bold;
 }
-.login2{
-    width: 100px;
-    padding: 2px;
-    text-align: center;
-    border-radius: 2em;
-    margin: 10px 10px; 
-    font-size: 20px;
-    font-weight: bold;
-    background-color: white;
-    border: 5px solid;
+
+.ant-input-search > .ant-input-group > .ant-input-group-addon .ant-input-search-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.anticon svg{
+    font-size: 25px
 }

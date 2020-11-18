@@ -1,0 +1,64 @@
+.container {
+  width: 500px !important;
+  box-shadow: 1px 2px 20px 2px gray;
+  border-radius: 20px;
+}
+@media screen and (max-width: 530px) {
+  .container {
+    width: 340px !important;
+  }
+}
+.mainhead {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.head {
+  text-align: center;
+  padding: 30px 0px;
+  background-color: #35cce6;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+.main-row {
+  display: flex;
+  justify-content: center;
+}
+.colum {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 400px;
+  color: white;
+}
+input {
+  outline: none;
+  border: none;
+}
+.divin {
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 25px;
+  border-radius: 1em;
+  box-shadow: 1px 2px 20px 2px #35cce6;
+}
+.inputname {
+  width: 100%;
+  border: none;
+  border-bottom: 3px solid #35cce6;
+  outline: none;
+  color: black !important;
+}
+.namebtn {
+  width: 100%;
+  padding: 6px;
+  border: none !important;
+  background-color: #35cce6;
+  margin-top: 8px;
+  color: white;
+  outline: none !important;
+  cursor: pointer;
+  border-radius: 5px;
+}

@@ -1,0 +1,93 @@
+.mainDiv {
+    position: fixed;
+    right: 0;
+    bottom: 30px;
+    padding: 10px;
+    background-color: white;
+  }
+  
+  .cont {
+    width: 350px;
+    height: 450px;
+    box-shadow: 1px 2px 20px 2px gray;
+  }
+  .headingDiv {
+    padding-bottom: 10px;
+  }
+  .h1 {
+    /* border-top-right-radius: 10px; */
+    /* border-top-left-radius: 10px; */
+    padding: 10px;
+    background-color: #35cce6;
+  }
+  /* .arrowbtn {
+    font-size: 30px;
+    float: left;
+    padding-top: 10px;
+  } */
+  .heading {
+    padding-left: 10px;
+    display: inline;
+  }
+  .dltbtn {
+    font-size: 30px;
+    float: right;
+  }
+  .colinput {
+    display: flex;
+    flex-direction: column;
+    height: 290px;
+    overflow: auto;
+    padding-left: 30px !important;
+    padding-right: 30px !important;
+  }
+  .userDiv {
+    max-width: 70%;
+    min-width: 40%;
+    display: flex;
+    flex-direction: column;
+    float: right;
+    outline: none;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #35cce6;
+    color: white;
+  }
+  .username {
+    align-self: flex-end;
+    font-weight: bold;
+  }
+  .span-msg1 {
+    align-self: flex-end;
+  }
+  
+  .time {
+    align-self: flex-start;
+    font-size: x-small;
+  }
+  /* .input1 {
+    max-width: 70%;
+    min-width: 40%;
+    display: flex;
+    float: left;
+    flex-direction: column;
+    outline: none;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgb(126, 126, 245);
+    color: white;
+    padding: 5px 10px;
+    margin-top: 10px;
+  } */
+  .name {
+    font-weight: bold;
+  }
+  .date {
+    font-size: x-small;
+    align-self: flex-end;
+  }
+  .inputDiv {
+    /* padding: 3px; */
+  }

@@ -1,46 +1,85 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
-// import images from '../../components/cardDetail/image';
-import Data from '../../data';
-import dil from '../../images/phone/dil.png';
+import { HeartOutlined } from '@ant-design/icons';
+import firebase from '../../db';
 import { useHistory } from "react-router-dom";
-// import deta from './components/footar';
-// import './App.css';
+import ModalLogin from './modal';
 
 
+const db = firebase.firestore();
 
 function CardImg() {
-  let history = useHistory();
+  const [smShow, setSmShow] = useState(false);
+  let History = useHistory();
+  const [Post, setPost] = useState([]);
+
+  useEffect(() => {
+    let postArr = [];
+    db.collection("data").get()
+      .then(async (querySnapshot) => {
+        let obj = {};
+        await querySnapshot.forEach((doc) => {
+          obj = doc.data();
+          let objData = {
+            image: obj.URLs[0],
+            price: "Rs: " + obj.price,
+            city: obj.City,
+            Country: obj.Country,
+            images: obj.URLs,
+            detail: {
+              make: obj.Make,
+              year: obj.SelectDate,
+              condition: obj.Condition,
+            },
+            description: obj.Description.split(','),
+            name: obj.categories,
+          }
+          postArr.push(objData)
+          // console.log(doc.id, " => ", objData);
+        });
+        setPost(postArr)
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+  }, [])
 
   const detail = (item) => {
-    history.push("/bikeDetail", item);
+    History.push("/bikeDetail", item);
+  }
 
+  const heartImg = () => {
+    let uid = localStorage.getItem('uid');
+    if (uid) {
+    } else {
+      setSmShow(true)
+    }
   }
 
   return (
     <Container fluid className="cardDiv">
       <Row style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
         {
-          Data.map((item) => {
+          Post.map((item) => {
             return (
-              <div >  
+              <div>
                 <Col lg={4} md={2} sm={1} className="colum">
-
-                  <div onClick={() => detail(item)}
+                  <div
                     style={{ width: '300px', height: '300px', margin: '8px', border: '2px solid #ebeeef' }}>
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <span style={{ position: 'absolute', left: '35px', top: '10px', padding: '0px 5px', backgroundColor: '#ffce32' }}>Featured</span>
 
-                      <img style={{ width: '200px', height: '200px' }}
+                      <img onClick={() => detail(item)}
+                        style={{ width: '200px', height: '200px', }}
                         src={item.image} alt="card" className="CardImg" />
 
-                      <img src={dil} alt="dil"
-                        style={{ width: '20px', height: '30px', position: 'relative', right: '-25px', top: '10px' }} />
-
+                      <HeartOutlined
+                        onClick={() => heartImg()}
+                        style={{ position: 'relative', right: '-25px', top: '10px', fontSize: '30px' }} />
                     </div>
 
-                    <div style={{height:'97px', padding: '10px 15px 10px', borderLeft: '5px solid #ffce32' }}>
+                    <div style={{ height: '97px', padding: '10px 15px 10px', borderLeft: '5px solid #ffce32' }}>
                       <span style={{ fontWeight: 'bold', fontSize: '24px' }} >{item.price}</span>
                       <br />
                       <span >{item.name}</span>
@@ -48,6 +87,7 @@ function CardImg() {
 
                   </div>
                 </Col>
+                <ModalLogin visible={smShow} setVisible={() => setSmShow(false)} />
               </div>
             )
           })

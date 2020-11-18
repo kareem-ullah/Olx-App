@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col } from 'react-bootstrap';
 import largImg from '../../images/image/largImg.jpg';
@@ -9,7 +9,7 @@ function LargeImg() {
         <Container fluid>
             <Row>
                 <Col style={{ padding: '0px' }}>
-                    <img src={largImg}  className="largeImg" />
+                    <img src={largImg} className="largeImg" alt="img" />
                 </Col>
             </Row>
             <Row>

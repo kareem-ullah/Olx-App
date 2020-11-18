@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import olx from '../../images/bike/olx.jpg';
 import { Button, Modal } from 'react-bootstrap';
 import firebase from '../../db'
-import SignupLog from './Signup';
+import SignupLog from '../signup';
 import { Input } from 'antd';
 import { MailOutlined,LockOutlined } from '@ant-design/icons';
 
@@ -10,13 +10,12 @@ import { MailOutlined,LockOutlined } from '@ant-design/icons';
 const db = firebase.firestore();
 
 function ModalLogin({visible, setVisible}) {
-    // const [smShow, setSmShow] = useState(false);
     const [credentials, setCredentials] = useState({ email: "", password: "" });
 
     const getuser = () => {
         firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
             .then(function (succuss) {
-                console.log('uid',succuss.user.uid)
+                // console.log('uid',succuss.user.uid)
                 localStorage.setItem("uid",succuss.user.uid)
                 db.collection("user").doc(succuss.user.uid).get()
 
