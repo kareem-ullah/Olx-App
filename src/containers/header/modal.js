@@ -22,10 +22,12 @@ function ModalLogin({visible, setVisible}) {
 
                     .then(function (doc) {
                         if (doc.exists) {
-                            alert("data Match");
+                            setVisible()
+                            // alert("WelCome Login");
                         } else {
                             alert("No such document!");
                         }
+                        setVisible();
                     }).catch(function (error) {
                         alert("Error getting document:", error);
                     });

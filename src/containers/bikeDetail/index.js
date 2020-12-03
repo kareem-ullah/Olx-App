@@ -1,28 +1,46 @@
-import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
+import React, { useState } from 'react';
+import { Container, Row, Col, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Header from '../../containers/header';
-import Example from '../../components/modalLogin'
+// import Example from '../../components/modalLogin'
 import SecHeader from '../../containers/navbar';
 import Footar from '../../components/footar';
+import ModalLogin from '../header/modal';
 import ControlledCarousel from '../../components/carousel';
 import { HeartOutlined } from '@ant-design/icons';
 import olx from '../../images/bike/olx.jpg';
 import map from '../../images/bike/map.PNG';
 import '../../App.css';
 import Chat from '../Chaat';
+import ChatList from '../chatList';
 
 
-function bikeDetail(props) {
-
+function BikeDetail(props) {
+    const [smShow, setSmShow] = useState(false);
+    const [chatOpen, setChatOpen] = useState(false);
+    const [chatList, setChatList] = useState(false);
     const data = props.location.state;
+    console.log('data', data)
     if (!data) {
         props.history.push('/');
     }
 
-
+    const openChat = () => {
+        const uid = localStorage.getItem('uid')
+        if (uid) {
+            setChatOpen(true)
+            if (data.uid === uid) {
+                setChatList(true)
+            } else {
+                setChatOpen(true)
+            }
+        } else {
+            setSmShow(true)
+        }
+    }
 
     return (
+
         <>
             <div>
                 <Header />
@@ -159,7 +177,23 @@ function bikeDetail(props) {
 
                                 <div style={{ paddingTop: '20px' }}>
 
-                                    <Example />
+                                    {
+                                        chatList ?
+                                            <ChatList visible={chatList} setVisible={() => setChatList(false)} recieverUID={data.uid} postID={data.postID} />
+                                            :
+                                            chatOpen ?
+                                                <Chat visible={chatOpen} setVisible={() => setChatOpen(false)} recieverUID={data.uid} postID={data.postID} />
+                                                :
+                                                null
+                                    }
+                                    <ModalLogin visible={smShow} setVisible={() => setSmShow(false)} />
+                                    <Button
+                                        variant="outline-dark" size="lg" style={{ fontSize: '15px', fontWeight: 'bold' }} block
+                                        onClick={openChat}
+                                    >
+                                        Chat with seller
+                                    </Button>
+
                                 </div>
 
                             </div>
@@ -176,25 +210,15 @@ function bikeDetail(props) {
                             </div>
                         </Col>
 
-
-
-
                     </Row>
-
-
 
                 </Container>
 
                 <Footar />
             </div>
-            {
-                1 === 2 ?
-                    <Chat />
-                    :
-                    null
-            }
+
         </>
     )
 }
 
-export default bikeDetail;
+export default BikeDetail;

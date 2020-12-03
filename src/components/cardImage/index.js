@@ -4,13 +4,15 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { HeartOutlined } from '@ant-design/icons';
 import firebase from '../../db';
 import { useHistory } from "react-router-dom";
-import ModalLogin from './modal';
+import ModalLogin from '../../containers/header/modal';
+import Chat from '../../containers/Chaat'
 
 
 const db = firebase.firestore();
 
 function CardImg() {
-  const [smShow, setSmShow] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [smShowLogin, setSmShowLogin] = useState(false);
   let History = useHistory();
   const [Post, setPost] = useState([]);
 
@@ -20,6 +22,7 @@ function CardImg() {
       .then(async (querySnapshot) => {
         let obj = {};
         await querySnapshot.forEach((doc) => {
+          console.log('Postid', doc.id);
           obj = doc.data();
           let objData = {
             image: obj.URLs[0],
@@ -34,6 +37,8 @@ function CardImg() {
             },
             description: obj.Description.split(','),
             name: obj.categories,
+            uid: obj.uid,
+            postID: doc.id
           }
           postArr.push(objData)
           // console.log(doc.id, " => ", objData);
@@ -52,8 +57,10 @@ function CardImg() {
   const heartImg = () => {
     let uid = localStorage.getItem('uid');
     if (uid) {
+      setChatOpen(true)
     } else {
-      setSmShow(true)
+      setSmShowLogin(true)
+      
     }
   }
 
@@ -77,6 +84,13 @@ function CardImg() {
                       <HeartOutlined
                         onClick={() => heartImg()}
                         style={{ position: 'relative', right: '-25px', top: '10px', fontSize: '30px' }} />
+               {
+                 chatOpen ?
+                 <Chat visible={chatOpen} setVisible={() => setChatOpen(false)} />
+                 :
+                <ModalLogin visible={smShowLogin} setVisible={() => setSmShowLogin(false)} />
+               }
+               
                     </div>
 
                     <div style={{ height: '97px', padding: '10px 15px 10px', borderLeft: '5px solid #ffce32' }}>
@@ -87,7 +101,6 @@ function CardImg() {
 
                   </div>
                 </Col>
-                <ModalLogin visible={smShow} setVisible={() => setSmShow(false)} />
               </div>
             )
           })

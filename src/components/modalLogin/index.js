@@ -1,104 +1,98 @@
-import React, { useState } from 'react';
-import { Button, Modal } from 'react-bootstrap';
-import olx from '../../images/bike/olx.jpg';
-import firebase from '../../db'
-import Signup from '../signup';
-import { Input } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
+// import React, { useState } from 'react';
+// import { Button, Modal } from 'react-bootstrap';
+// import olx from '../../images/bike/olx.jpg';
+// import firebase from '../../db'
+// import Signup from '../signup';
+// import { Input } from 'antd';
+// import { MailOutlined, LockOutlined } from '@ant-design/icons';
 
 
 
 
-const db = firebase.firestore();
+// const db = firebase.firestore();
 
 
 
-function Example() {
-    const [chatShow, setchatShow] = useState(false);
-    const [smShow, setSmShow] = useState(false);
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
+// function Example() {
+//     const [chatShow, setchatShow] = useState(false);
+//     const [smShow, setSmShow] = useState(false);
+//     const [credentials, setCredentials] = useState({ email: "", password: "" });
 
-    const getuser = () => {
-        firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
-            .then(function (succuss) {
-                console.log('uid', succuss.user.uid)
-                localStorage.setItem("uid", succuss.user.uid)
-                db.collection("user").doc(succuss.user.uid).get()
+//     const getuser = () => {
+//         firebase.auth().signInWithEmailAndPassword(credentials.email, credentials.password)
+//             .then(function (succuss) {
+//                 console.log('uid', succuss.user.uid)
+//                 localStorage.setItem("uid", succuss.user.uid)
+//                 db.collection("user").doc(succuss.user.uid).get()
 
-                    .then(function (doc) {
-                        if (doc.exists) {
-                            alert("data Match");
-                        } else {
-                            alert("No such document!");
-                        }
-                    }).catch(function (error) {
-                        alert("Error getting document:", error);
-                    });
-            })
-            .catch(function (error) {
-                alert('plz SignUp')
+//                     .then(function (doc) {
+//                         if (doc.exists) {
+//                             alert("data Match");
+//                         } else {
+//                             alert("No such document!");
+//                         }
+//                     }).catch(function (error) {
+//                         alert("Error getting document:", error);
+//                     });
+//             })
+//             .catch(function (error) {
+//                 alert('plz SignUp')
 
-            });
-    }
+//             });
+//     }
 
-    return (
-        <>
-        {
-            1 === 1 ?
+//     return (
+//         <>
+       
 
-            <Button
-            variant="outline-dark" size="lg" style={{ fontSize: '15px', fontWeight: 'bold' }} block
-            onClick={() => setSmShow(true)}> Chat with seller </Button>
-            :
-            <Button
-            variant="outline-dark" size="lg" style={{ fontSize: '15px', fontWeight: 'bold' }} block
-            onClick={() => setSmShow(true)}> Chat </Button>
+//             <Button
+//             variant="outline-dark" size="lg" style={{ fontSize: '15px', fontWeight: 'bold' }} block
+//             onClick={() => setSmShow(true)}> Chat with seller </Button>
+           
+//             <Modal
+//                 size="md"
+//                 show={smShow}
+//                 onHide={() => setSmShow(false)}
+//                 aria-labelledby="example-modal-sizes-title-md"
+//             >
+//                 <Modal.Header closeButton>
 
-        }
-            <Modal
-                size="md"
-                show={smShow}
-                onHide={() => setSmShow(false)}
-                aria-labelledby="example-modal-sizes-title-md"
-            >
-                <Modal.Header closeButton>
+//                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center', paddingTop: '10px' }}>
+//                         <img src={olx} style={{ width: '50px', height: '50px' }} alt="olx" />
+//                     </div>
+//                 </Modal.Header>
+//                 <span style={{ textAlign: 'center', color: '#002f34', fontSize: '20px', fontWeight: '700', padding: '10px 15px' }}>
+//                     Write a message to Ow Motorsports</span>
+//                 <Modal.Body>
 
-                    <div style={{ width: '100%', display: 'flex', justifyContent: 'center', paddingTop: '10px' }}>
-                        <img src={olx} style={{ width: '50px', height: '50px' }} alt="olx" />
-                    </div>
-                </Modal.Header>
-                <span style={{ textAlign: 'center', color: '#002f34', fontSize: '20px', fontWeight: '700', padding: '10px 15px' }}>
-                    Write a message to Ow Motorsports</span>
-                <Modal.Body>
+//                     <div style={{ paddingBottom: '15px' }}>
+//                         <span>Enter Email</span>
+//                         <Input placeholder="Enter Email" style={{padding:'8px'}}
+//                             onChange={event => setCredentials({ email: event.target.value, password: credentials.password })}
+//                             prefix={<MailOutlined style={{ fontSize: '20px' }} />} />
+//                     </div>
 
-                    <div style={{ paddingBottom: '15px' }}>
-                        <span>Enter Email</span>
-                        <Input placeholder="Enter Email" style={{padding:'8px'}}
-                            onChange={event => setCredentials({ email: event.target.value, password: credentials.password })}
-                            prefix={<MailOutlined style={{ fontSize: '20px' }} />} />
-                    </div>
+//                     <div>
+//                         <span>Enter Password</span>
+//                         <Input.Password placeholder="input password" style={{padding:'8px'}}
+//                         prefix={<LockOutlined style={{ fontSize: '20px' }} />}
+//                             onChange={event => setCredentials({ email: credentials.email, password: event.target.value })}
+//                         />
+//                     </div>
 
-                    <div>
-                        <span>Enter Password</span>
-                        <Input.Password placeholder="input password" style={{padding:'8px'}}
-                        prefix={<LockOutlined style={{ fontSize: '20px' }} />}
-                            onChange={event => setCredentials({ email: credentials.email, password: event.target.value })}
-                        />
-                    </div>
+//                     <div style={{ paddingTop: '30px' }}>
+//                         <Button type="primary" style={{ fontWeight: 'bold' }} onClick={() => getuser()} block>Login </Button>
+//                     </div>
 
-                    <div style={{ paddingTop: '30px' }}>
-                        <Button type="primary" style={{ fontWeight: 'bold' }} onClick={() => getuser()} block>Login </Button>
-                    </div>
+//                     <div style={{ textAlign: 'center', padding: '10px 0px 0px 0px ' }}>
+//                         <Signup />
+//                     </div>
 
-                    <div style={{ textAlign: 'center', padding: '10px 0px 0px 0px ' }}>
-                        <Signup />
-                    </div>
+//                 </Modal.Body>
+//             </Modal>
 
-                </Modal.Body>
-            </Modal>
+//         </>
+//     );
+// }
 
-        </>
-    );
-}
-
-export default Example;
+// export default Example;

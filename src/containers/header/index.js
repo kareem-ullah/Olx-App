@@ -11,8 +11,9 @@ const { Search } = Input;
 
 function Header() {
     const [smShow, setSmShow] = useState(false);
-    let History = useHistory();
 
+
+    let History = useHistory();
     const HomePage = () => {
         History.push("/");
     }
@@ -24,8 +25,14 @@ function Header() {
         } else {
             setSmShow(true)
         }
-        // console.log(uid)
     }
+
+    const logout = () => {
+        localStorage.removeItem('uid');
+        History.push("/");
+    }
+
+
     const onSearch = value => console.log(value);
     return (
         <Container fluid className="headerRow">
@@ -60,20 +67,36 @@ function Header() {
                 </Col>
 
                 <Col className="loginCol" lg={2} md={2} sm={12}>
+
                     <div className="loginBtn">
-                        <button
-                            style={{ border: 'none', outline: 'none', fontSize: '18px', fontWeight: 'bold' }}
-                            onClick={() => setSmShow(true)}>Login</button>
+                        {
+                            !localStorage.getItem('uid') ?
+                                <button
+                                    style={{ border: 'none', outline: 'none', fontSize: '18px', fontWeight: 'bold' }}
+                                    onClick={() => setSmShow(true)}>Login
+                            </button>
+                                :
+
+                                <button
+                                    style={{ border: 'none', outline: 'none', fontSize: '18px', fontWeight: 'bold' }}
+                                    onClick={() => logout()}>LogOut
+                            </button>
+                        }
                     </div>
 
                     <div>
-
-
-                        <Button type="primary" onClick={() => FormPage()} style={{ padding: '0px 8px 5px 5px' }} >
-                            <span style={{ fontSize: '20px' }}>+ </span>
-                            Post
-                        </Button>
-
+                        {
+                            !localStorage.getItem('uid') ?
+                                <Button type="primary" onClick={() => FormPage()} style={{ padding: '0px 8px 5px 5px' }} >
+                                    <span style={{ fontSize: 'px' }}>Login </span>
+                                    Post
+                                </Button>
+                                :
+                                <Button type="primary" onClick={() => FormPage()} style={{ padding: '0px 8px 5px 5px' }} >
+                                    <span style={{ fontSize: '20px' }}>+ </span>
+                                    Post
+                                </Button>
+                        }
                     </div>
                 </Col>
             </Row>

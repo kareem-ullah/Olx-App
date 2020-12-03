@@ -1,0 +1,42 @@
+.MainDiv {
+  position: fixed;
+  right: 0;
+  bottom: 30px;
+  /* padding: 10px; */
+  z-index: 1;
+  background-color: white;
+}
+.containerDiv {
+  width: 350px;
+  height: 450px;
+  border: 2px solid #007bff;
+}
+.headColum {
+  background-color: #007bff;
+}
+.headDiv {
+  padding-bottom: 10px;
+}
+.headingChat {
+  display: inline;
+}
+.columId {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+.userDivId {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  padding: 5px;
+  background-color: #007bff;
+  color: white;
+  /* border: 8px solid  #007bff; */
+}
+.dltBtn {
+  float: right;
+  margin-top: 15px;
+}

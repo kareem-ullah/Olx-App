@@ -9,32 +9,66 @@ import './index.css';
 
 
 const db = firebase.firestore();
-
+//  const uid = localStorage.getItem('uid')
 class Chat extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: '',
+            postID: '',
+            recieverUID: '',
+            senderUID: '',
             text: '',
             user: []
         }
     }
+    componentWillMount() {
+        const { recieverUID, postID } = this.props;
+        // console.log('****', { recieverUID, postID })
+        const senderUID = localStorage.getItem('uid')
+        this.setState({ recieverUID, postID, senderUID }, () => {
+            // console.log('data', { ad: this.state.recieverUID, postID, senderUID })
+            this.getMessage();
+        })
 
-    Send = () => {
-        const { text, name } = this.state;
-        let object = {
-            name: name,
-            message: text,
-            timeStamp: new Date().getTime()
+    }
+
+    Send = async () => {
+        const { text, recieverUID, postID, senderUID } = this.state;
+        let uid;
+        if (senderUID > recieverUID) {
+            uid = senderUID + recieverUID;
         }
-        db.collection('message').add(object);
-        this.setState({ name: name, text: '' })
-        // console.log('okkk', object)
+        else {
+            uid = recieverUID + senderUID;
+        }
+        let msgObj = {
+            recieverUID,
+            senderUID,
+            message: text,
+            timeStamp: new Date().getTime(),
+            messageUID: uid,
+            postID
+        }
+        console.log('Message', uid)
+
+        // await db.collection('message').doc(postID).collection(uid).add(msgObj);
+        await db.collection('message').add(msgObj);
+        this.setState({ text: '' })
     }
 
     getMessage = () => {
-
-        db.collection("message").where("name", "in", ["wasi", "ali"]).orderBy('timeStamp', 'asc')
+        let uid;
+        const { postID, senderUID, recieverUID } = this.state;
+        // console.log('run', { postID, senderUID, recieverUID })
+        if (senderUID > recieverUID) {
+            uid = senderUID + recieverUID;
+        }
+        else {
+            uid = recieverUID + senderUID;
+        }
+        console.log('Message', uid)
+        // db.collection("message").doc(postID).collection(uid).orderBy('timeStamp', 'asc')
+        db.collection("message").where("postID", "==", postID).where("messageUID", "==", uid).orderBy('timeStamp', 'asc')
             .get()
             .then((querySnapshot) => {
                 var message = [];
@@ -50,12 +84,11 @@ class Chat extends Component {
     }
 
     delete = () => {
-        this.setState({ user: [] })
+        this.props.setVisible()
     }
 
-
     render() {
-        const { user, name } = this.state;
+        const { user, text, postID } = this.state;
         // console.log(user)
         return (
 
@@ -64,10 +97,9 @@ class Chat extends Component {
                     <Row>
                         <Col lg={12} md={12} sm={12} className="h1" style={{ textAlign: 'center' }}>
                             <div className="headingDiv" >
-                                <h1 className="heading">Chat App </h1>
+                                <h1 className="heading">Chat </h1>
                                 <CloseOutlined onClick={() => this.delete()} className="dltbtn" />
                             </div>
-                            <h5>Simple Chat App</h5>
                         </Col>
                     </Row>
 
@@ -76,10 +108,11 @@ class Chat extends Component {
 
                             {
                                 user.map((item, index) => {
-                                    return item.name === name ?
+                                    // console.log('item',item)
+                                    return item.postID === postID ?
                                         <p key={index}>
                                             <div className="userDiv">
-                                                <span className="username">{item.name}</span>
+                                                {/* <span className="username">{item.name}</span> */}
                                                 <span className="span-msg1">{item.message}</span>
                                                 <span className="time">{new Date(item.timeStamp).toLocaleTimeString()}</span>
                                             </div>
@@ -87,7 +120,7 @@ class Chat extends Component {
                                         :
 
                                         <p key={index}>
-                                            <div className="input1">
+                                            <div className="UserDiv2nd">
                                                 <span className="name">{item.name}</span>
                                                 <span className="span-msg2">{item.message}</span>
                                                 <span className="date">{new Date(item.timeStamp).toLocaleTimeString()}</span>
@@ -103,7 +136,7 @@ class Chat extends Component {
                     <Row>
                         <Col lg={12} md={12} sm={12} style={{ padding: '0px' }}>
                             <div className="inputDiv">
-                                <Input size="large" placeholder="Message"
+                                <Input size="large" placeholder="Message" value={text}
                                     onChange={(event) => this.setState({ text: event.target.value })}
                                     addonAfter={<SendOutlined onClick={() => this.Send()}
                                         style={{ fontSize: '30px' }} />} />

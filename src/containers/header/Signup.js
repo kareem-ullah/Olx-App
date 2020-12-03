@@ -24,6 +24,7 @@ function SignupLog() {
                 delete obj.password;
                 // console.log(succuss.user.uid, 'Object', obj);
                 db.collection('user').doc(succuss.user.uid).set(obj);
+                setSmShow()
             })
             .catch(function (error) {
                 alert(error.message)

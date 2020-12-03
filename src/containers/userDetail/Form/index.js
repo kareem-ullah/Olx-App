@@ -59,7 +59,7 @@ class UserData extends Component {
   }
 
   render() {
-
+// console.log(this.state.price)
     return (
       <Container style={{ width: '600px', border: 'px solid grey', fontWeight: 'bold', padding: '10px' }}>
         <Form lg={12} md={12} sm={12}
@@ -142,19 +142,22 @@ class UserData extends Component {
           </Form.Item>
 
 
-
-
-
-
-
           <Form.Item label="SelectDate" name="SelectDate" rules={[{ required: true, message: 'Please input your SelectDate!' }]}>
             <DatePicker onChange={(string, date) => this.setState({ SelectDate: date })} />
           </Form.Item>
 
 
+
           <Form.Item label="EnterPrice" name="EnterPrice" rules={[{ required: true, message: 'Please input your EnterPrice!' }]}>
-            <InputNumber placeholder="Enter Price" onChange={(num) => this.setState({ price: num })} />
+            <Input placeholder='Enter Price' onChange={(event) => this.setState({ price: event.target.value })} />
           </Form.Item>
+
+
+
+
+          {/* <Form.Item label="EnterPrice" name="EnterPrice" rules={[{ required: true, message: 'Please input your EnterPrice!' }]}>
+            <InputNumber placeholder="Enter Price" onChange={(num) => this.setState({ price: num })} />
+          </Form.Item> */}
 
 
           <Form.Item label="ImageUpload"
